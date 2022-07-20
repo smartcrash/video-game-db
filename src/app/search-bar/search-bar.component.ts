@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-bar',
@@ -7,18 +7,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./search-bar.component.scss']
 })
 export class SearchBarComponent implements OnInit {
-  constructor(private router: Router) { }
+  inputValue = ''
+
+  constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    // TODO: Set input value to `search` URL param
+    this.route.params.subscribe(params => this.inputValue = params['search'] || "")
   }
 
-  onSubmit(event: SubmitEvent): void {
-    event.preventDefault()
+  onSubmit(): void {
+    const value = this.inputValue.trim()
 
-    const data = new FormData(event.target as HTMLFormElement)
-    const search = data.get('search')?.toString().trim()
-
-    if (search) this.router.navigate(['/', search])
+    if (value) this.router.navigate(['/', value])
   }
 }

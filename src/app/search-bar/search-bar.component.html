@@ -1,8 +1,8 @@
-<form (submit)="onSubmit($event)">
+<form (submit)="onSubmit()">
   <div>
     <div class="input-group">
       <input type="search" class="form-control" placeholder="Search 500,000+ games" aria-label="Search 500,000+ games"
-        name="search" aria-describedby="search-button">
+        name="search" aria-describedby="search-button" [(ngModel)]="inputValue">
       <button type="submit" class="btn btn-primary" id="search-button">Search</button>
     </div>
   </div>
