@@ -11,6 +11,7 @@ import { HttpHeadersInterceptor } from './interceptors/http-headers.interceptor'
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { GameItemComponent } from './game-item/game-item.component';
 import { StarIconComponent } from './star-icon/star-icon.component';
+import { SearchIconComponent } from './search-icon/search-icon.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { StarIconComponent } from './star-icon/star-icon.component';
     SearchBarComponent,
     HomeComponent,
     GameItemComponent,
-    StarIconComponent
+    StarIconComponent,
+    SearchIconComponent
   ],
   imports: [
     BrowserModule,

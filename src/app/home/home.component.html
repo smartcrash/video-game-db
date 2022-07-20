@@ -1,3 +1,12 @@
 <div class="container">
-  <app-search-bar></app-search-bar>
+  <header class="mb-16 pt-6 flex justify-center">
+    <div class="w-full lg:w-1/2">
+      <app-search-bar></app-search-bar>
+    </div>
+  </header>
+
+  <ul class="grid grid-cols-3 gap-8">
+    <app-game-item *ngFor="let game of games" [game]="game">
+    </app-game-item>
+  </ul>
 </div>
