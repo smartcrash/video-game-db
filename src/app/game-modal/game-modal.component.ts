@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { Modal } from 'bootstrap';
-import { Subscription } from 'rxjs';
 import { GameDetails } from '../models';
 import { HttpService } from '../services/http.service';
 
@@ -24,11 +23,11 @@ export class GameModalComponent implements OnInit, AfterViewInit, OnDestroy, OnC
   /** Holds and instance of Boostrap's Modal */
   private modal!: Modal
 
-  /** Subscription to HttpService */
-  private sub?: Subscription
-
   /** Game details */
   game?: GameDetails
+
+  /** Stores the result of previously fetched games */
+  private cache: Record<number, GameDetails> = {}
 
   constructor(private httpService: HttpService) { }
 
@@ -53,32 +52,33 @@ export class GameModalComponent implements OnInit, AfterViewInit, OnDestroy, OnC
     const { currentValue } = id || {}
 
     /** Update subcription when `id` changes */
-    // TODO: Cache result
     if (typeof currentValue === 'number') {
-      // Teardown previous subscription if exists
-      this.sub?.unsubscribe()
-
-
-      if (currentValue > -1) {
-        this.sub = this.httpService
-          .getDetailsOfGame(currentValue)
-          .subscribe((game) => this.game = game)
-      } else {
-        this.game = undefined
-      }
+      if (currentValue > -1) this.getDetailsOfGame(currentValue)
+      else this.game = undefined
     }
   }
 
+  private getDetailsOfGame(id: number) {
+    if (!this.cache[id]) {
+      const sub = this.httpService
+        .getDetailsOfGame(id)
+        .subscribe(game => {
+          this.cache[id] = game
+          this.game = this.cache[id]
+          sub.unsubscribe()
+        })
+    } else this.game = this.cache[id]
+  }
+
   ngAfterViewInit(): void {
-    const element = this.modalElement.nativeElement
+    const { nativeElement } = this.modalElement
 
-    this.modal = new Modal(element, {})
+    this.modal = new Modal(nativeElement, {})
 
-    element.addEventListener('hide.bs.modal', () => this.onClose.emit())
+    nativeElement.addEventListener('hide.bs.modal', () => this.onClose.emit())
   }
 
   ngOnDestroy(): void {
     this.modal.dispose()
-    this.sub?.unsubscribe()
   }
 }
