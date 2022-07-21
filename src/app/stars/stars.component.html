@@ -1,0 +1,5 @@
+<ul class="flex space-x-1">
+  <li *ngFor="let item of [].constructor(5); let index = index">
+    <app-star-icon class="scale-150 {{ count > index ? 'text-black' : 'text-gray-400' }}"></app-star-icon>
+  </li>
+</ul>

@@ -7,7 +7,35 @@
         <ng-template #loading>Loading...</ng-template>
 
         <ng-template #details>
-          {{ game!.name }}
+          <figure class="-mx-4 relative">
+            <img class="" src="{{ game!.background_image }}" alt="">
+
+            <div class="absolute h-20 w-full bottom-0 left-0 bg-gradient-to-t from-white to-transparent"></div>
+          </figure>
+
+          <div class="-mt-4 z-10 relative space-y-2">
+            <h1 class="text-3xl font-bold">{{ game!.name }}</h1>
+
+            <ul>
+              <li class="flex space-x-2 items-center">
+                <app-star-icon></app-star-icon>
+                <span class="text-sm">{{ game!.rating}}</span>
+              </li>
+            </ul>
+
+            <!-- TODO: List genres -->
+
+
+            <div class="text-sm py-3" [innerHtml]="game!.description"></div>
+
+            <div class="flex space-x-4 items-start">
+              <h5 class="text-4xl font-bold">{{ game?.rating }}</h5>
+              <div class="space-y-1">
+                <app-stars [count]="4"></app-stars>
+                <p class="text-sm">{{ game?.ratings_count }} reviews</p>
+              </div>
+            </div>
+          </div>
         </ng-template>
 
       </div>

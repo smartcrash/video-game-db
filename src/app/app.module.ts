@@ -13,6 +13,7 @@ import { StarIconComponent } from './star-icon/star-icon.component';
 import { SearchIconComponent } from './search-icon/search-icon.component';
 import { GameModalComponent } from './game-modal/game-modal.component';
 import { GameCardComponent } from './game-card/game-card.component';
+import { StarsComponent } from './stars/stars.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { GameCardComponent } from './game-card/game-card.component';
     GameCardComponent,
     StarIconComponent,
     SearchIconComponent,
-    GameModalComponent
+    GameModalComponent,
+    StarsComponent
   ],
   imports: [
     BrowserModule,
