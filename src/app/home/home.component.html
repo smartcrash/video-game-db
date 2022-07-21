@@ -5,10 +5,18 @@
     </div>
   </header>
 
-  <app-game-modal [id]="currentGameId" [isOpen]="isOpen" (onClose)="hideGameDetails()"></app-game-modal>
+  <div *ngIf="games === undefined then loading else list "></div>
 
-  <ul class="grid grid-cols-3 gap-8">
-    <app-game-card *ngFor="let game of games" [game]="game" (onClick)="showGameDetails($event.id)">
-    </app-game-card>
-  </ul>
+  <ng-template #loading>
+    <p>Loading...</p>
+  </ng-template>
+
+  <ng-template #list>
+    <ul class="grid grid-cols-3 gap-8">
+      <app-game-card *ngFor="let game of games" [game]="game" (onClick)="showGameDetails($event.id)">
+      </app-game-card>
+    </ul>
+  </ng-template>
+
+  <app-game-modal [id]="currentGameId" [isOpen]="isOpen" (onClose)="hideGameDetails()"></app-game-modal>
 </div>
