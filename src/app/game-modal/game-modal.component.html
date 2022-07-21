@@ -1,43 +1,36 @@
-<div class="modal fade" tabindex="-1" #modal aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-body">
-        <div *ngIf="!!game; then details else loading"></div>
+<app-modal [isOpen]="isOpen" (onClose)="onClose.emit()">
+  <div *ngIf="!!game; then details else loading"></div>
 
-        <ng-template #loading>Loading...</ng-template>
+  <ng-template #loading>Loading...</ng-template>
 
-        <ng-template #details>
-          <figure class="-mx-4 relative">
-            <img class="" src="{{ game!.background_image }}" alt="">
+  <ng-template #details>
+    <figure class="-mx-4 relative">
+      <img class="" src="{{ game!.background_image }}" alt="">
 
-            <div class="absolute h-20 w-full bottom-0 left-0 bg-gradient-to-t from-white to-transparent"></div>
-          </figure>
+      <div class="absolute h-20 w-full bottom-0 left-0 bg-gradient-to-t from-white to-transparent"></div>
+    </figure>
 
-          <div class="-mt-4 z-10 relative space-y-2">
-            <h1 class="text-3xl font-bold">{{ game!.name }}</h1>
+    <div class="-mt-4 z-10 relative space-y-2">
+      <h1 class="text-3xl font-bold">{{ game!.name }}</h1>
 
-            <ul>
-              <li class="flex space-x-2 items-center">
-                <app-star-icon></app-star-icon>
-                <span class="text-sm">{{ game!.rating}}</span>
-              </li>
-            </ul>
+      <ul>
+        <li class="flex space-x-2 items-center">
+          <app-star-icon></app-star-icon>
+          <span class="text-sm">{{ game!.rating}}</span>
+        </li>
+      </ul>
 
-            <!-- TODO: List genres -->
+      <!-- TODO: List genres -->
 
-            <div class="text-sm py-3" [innerHtml]="game!.description"></div>
+      <div class="text-sm py-3" [innerHtml]="game!.description"></div>
 
-            <div class="flex space-x-4 items-start">
-              <h5 class="text-4xl font-bold">{{ game?.rating }}</h5>
-              <div class="space-y-1">
-                <app-stars [count]="game!.rating"></app-stars>
-                <p class="text-sm">{{ game?.ratings_count }} reviews</p>
-              </div>
-            </div>
-          </div>
-        </ng-template>
-
+      <div class="flex space-x-4 items-start">
+        <h5 class="text-4xl font-bold">{{ game?.rating }}</h5>
+        <div class="space-y-1">
+          <app-stars [count]="game!.rating"></app-stars>
+          <p class="text-sm">{{ game?.ratings_count }} reviews</p>
+        </div>
       </div>
     </div>
-  </div>
-</div>
+  </ng-template>
+</app-modal>

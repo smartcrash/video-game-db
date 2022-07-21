@@ -562,21 +562,12 @@ const GAME = {
   selector: 'app-game-modal',
   templateUrl: './game-modal.component.html',
 })
-export class GameModalComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
+export class GameModalComponent implements OnInit, OnChanges {
   /** Current displayed game's ID */
   @Input() id: number = -1
 
-  /** Whether or not the modal is visible */
   @Input() isOpen = false
-
-  /** Is triggred when the modal is closed by the user */
   @Output() onClose = new EventEmitter<void>()
-
-  /** Reference to the modal's <div> */
-  @ViewChild('modal') private modalElement!: ElementRef<HTMLDivElement>
-
-  /** Holds and instance of Boostrap's Modal */
-  private modal!: Modal
 
   /** Game details */
   game?: GameDetailsWithScreenhotsAndMovies
@@ -590,19 +581,6 @@ export class GameModalComponent implements OnInit, AfterViewInit, OnDestroy, OnC
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    /* This open/closes the boostrap modal when `isOpen` changes */
-    if (this.modal) {
-      const { isOpen } = changes
-      const { currentValue, previousValue } = isOpen
-
-      // Do something if the value actualy changed
-      if (currentValue !== previousValue) {
-        if (currentValue) this.modal.show()
-        else this.modal.hide()
-      }
-    }
-
-
     const { id } = changes
     const { currentValue } = id || {}
 
@@ -627,17 +605,5 @@ export class GameModalComponent implements OnInit, AfterViewInit, OnDestroy, OnC
           sub.unsubscribe()
         })
     } else this.game = this.cache[id]
-  }
-
-  ngAfterViewInit(): void {
-    const { nativeElement } = this.modalElement
-
-    this.modal = new Modal(nativeElement, {})
-
-    nativeElement.addEventListener('hide.bs.modal', () => this.onClose.emit())
-  }
-
-  ngOnDestroy(): void {
-    this.modal.dispose()
   }
 }
