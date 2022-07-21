@@ -45,13 +45,25 @@ export interface Game {
   platforms: Platform[];
 }
 
-export interface APIResponse {
+export interface APIResponse<T> {
   count: number;
   next: string;
   previous: string;
-  results: Game[];
+  results: T;
 }
 
+export interface Movie {
+  id: number;
+  name: string;
+  preview: string;
+  data: any
+}
+
+
+export interface Screenshot {
+  imge: string
+  hidden: boolean
+}
 
 
 export interface MetacriticPlatform {
@@ -119,4 +131,6 @@ export interface GameDetails {
   esrb_rating: EsrbRating;
   platforms: Platform[];
 }
+
+export type GameDetailsWithScreenhotsAndMovies = GameDetails & { screenshots: Screenshot[], movies: Movie[] }
 
