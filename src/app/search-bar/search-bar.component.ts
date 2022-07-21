@@ -1,5 +1,6 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -7,9 +8,11 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.scss']
 })
-export class SearchBarComponent implements OnInit {
+export class SearchBarComponent implements OnInit, OnDestroy {
   @ViewChild('inputElement') inputElement!: ElementRef<HTMLInputElement>
   inputValue = ''
+
+  private routeParamsSub?: Subscription
 
   constructor(private router: Router, private route: ActivatedRoute) { }
 
@@ -24,12 +27,16 @@ export class SearchBarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => this.inputValue = params['search'] || "")
+    this.routeParamsSub = this.route.params.subscribe(params => this.inputValue = params['search'] || "")
   }
 
   onSubmit(): void {
     const value = this.inputValue.trim()
 
     if (value) this.router.navigate(['/', value])
+  }
+
+  ngOnDestroy(): void {
+    this.routeParamsSub?.unsubscribe()
   }
 }
