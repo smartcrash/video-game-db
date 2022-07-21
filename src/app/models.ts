@@ -61,7 +61,7 @@ export interface Movie {
 
 
 export interface Screenshot {
-  imge: string
+  image: string
   hidden: boolean
 }
 
@@ -130,6 +130,24 @@ export interface GameDetails {
   game_series_count: number;
   esrb_rating: EsrbRating;
   platforms: Platform[];
+  publishers: Publisher[];
+  genres: Genre[];
+}
+
+export interface Genre {
+  id: number
+  name: string
+  slug: string
+  games_count: number
+  image_background: string
+}
+
+export interface Publisher {
+  id: number
+  name: string
+  slug: string
+  games_count: number
+  image_background: string
 }
 
 export type GameDetailsWithScreenhotsAndMovies = GameDetails & { screenshots: Screenshot[], movies: Movie[] }
