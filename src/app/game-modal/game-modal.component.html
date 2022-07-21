@@ -25,13 +25,12 @@
 
             <!-- TODO: List genres -->
 
-
             <div class="text-sm py-3" [innerHtml]="game!.description"></div>
 
             <div class="flex space-x-4 items-start">
               <h5 class="text-4xl font-bold">{{ game?.rating }}</h5>
               <div class="space-y-1">
-                <app-stars [count]="4"></app-stars>
+                <app-stars [count]="game!.rating"></app-stars>
                 <p class="text-sm">{{ game?.ratings_count }} reviews</p>
               </div>
             </div>
