@@ -9,18 +9,20 @@ import { HomeComponent } from './home/home.component';
 import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 import { HttpHeadersInterceptor } from './interceptors/http-headers.interceptor';
 import { SearchBarComponent } from './search-bar/search-bar.component';
-import { GameItemComponent } from './game-item/game-item.component';
 import { StarIconComponent } from './star-icon/star-icon.component';
 import { SearchIconComponent } from './search-icon/search-icon.component';
+import { GameModalComponent } from './game-modal/game-modal.component';
+import { GameCardComponent } from './game-card/game-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchBarComponent,
     HomeComponent,
-    GameItemComponent,
+    GameCardComponent,
     StarIconComponent,
-    SearchIconComponent
+    SearchIconComponent,
+    GameModalComponent
   ],
   imports: [
     BrowserModule,

@@ -4664,12 +4664,25 @@ const GAMES = [
 })
 export class HomeComponent implements OnInit {
   games: ReadonlyArray<Game> = GAMES as any;
+  isOpen = false
+  currentGameId: number = -1
 
   constructor(private httpService: HttpService) { }
 
   ngOnInit(): void {
+    // TODO: Destroy sub on componet's destroy
     // this.httpService.getListOfGames().subscribe(({ results }) => this.games = results)
+  }
 
+  showGameDetails(id: number) {
+    this.currentGameId = id
+    this.isOpen = true
+  }
+
+  hideGameDetails() {
+    this.currentGameId = -1
+    this.isOpen = false
   }
 }
+
 

@@ -1,0 +1,16 @@
+<div class="modal fade" tabindex="-1" #modal aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div *ngIf="!!game; then details else loading"></div>
+
+        <ng-template #loading>Loading...</ng-template>
+
+        <ng-template #details>
+          {{ game!.name }}
+        </ng-template>
+
+      </div>
+    </div>
+  </div>
+</div>

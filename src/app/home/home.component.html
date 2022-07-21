@@ -5,8 +5,10 @@
     </div>
   </header>
 
+  <app-game-modal [id]="currentGameId" [isOpen]="isOpen" (onClose)="hideGameDetails()"></app-game-modal>
+
   <ul class="grid grid-cols-3 gap-8">
-    <app-game-item *ngFor="let game of games" [game]="game">
-    </app-game-item>
+    <app-game-card *ngFor="let game of games" [game]="game" (onClick)="showGameDetails($event.id)">
+    </app-game-card>
   </ul>
 </div>
