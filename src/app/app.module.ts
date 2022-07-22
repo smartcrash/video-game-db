@@ -31,7 +31,7 @@ import { SlidersIconComponent } from './sliders-icon/sliders-icon.component';
     StarsComponent,
     ModalComponent,
     OrderingSelectComponent,
-    SlidersIconComponent
+    SlidersIconComponent,
   ],
   imports: [
     BrowserModule,
