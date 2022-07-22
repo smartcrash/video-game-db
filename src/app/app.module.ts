@@ -16,6 +16,7 @@ import { GameCardComponent } from './game-card/game-card.component';
 import { StarsComponent } from './stars/stars.component';
 import { ModalComponent } from './modal/modal.component';
 import { HttpCacheInterceptor } from './interceptors/http-cache.interceptor';
+import { OrderingSelectComponent } from './ordering-select/ordering-select.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { HttpCacheInterceptor } from './interceptors/http-cache.interceptor';
     SearchIconComponent,
     GameModalComponent,
     StarsComponent,
-    ModalComponent
+    ModalComponent,
+    OrderingSelectComponent
   ],
   imports: [
     BrowserModule,

@@ -2,8 +2,10 @@
   <header class="mb-16 pt-6 flex justify-center">
     <div class="w-full lg:w-1/2">
       <app-search-bar></app-search-bar>
+      <app-ordering-select></app-ordering-select>
     </div>
   </header>
+
 
   <div *ngIf="games === undefined then loading else list "></div>
 
