@@ -23,6 +23,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
       event.stopPropagation()
 
       this.inputElement.nativeElement.focus()
+      this.inputElement.nativeElement.select()
     }
   }
 
@@ -33,7 +34,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   onSubmit(): void {
     const value = this.inputValue.trim()
 
-    if (value) this.router.navigate(['/', value])
+    this.router.navigate(['/', value])
   }
 
   ngOnDestroy(): void {
