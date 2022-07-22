@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Game } from '../models';
 import { HttpService } from '../services/http.service';
@@ -13,18 +14,28 @@ export class HomeComponent implements OnInit, OnDestroy {
   isOpen = false
   currentGameId: number = -1
 
-  private sub?: Subscription
+  private listOfGamesSub?: Subscription
+  private routeParamsSub?: Subscription
 
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.sub = this.httpService
-      .getListOfGames()
-      .subscribe(({ results }) => this.games = results)
+    this.routeParamsSub = this.activatedRoute.params.subscribe((params) => {
+      this.getListOfGames(params['search'] || '')
+    });
   }
 
   ngOnDestroy(): void {
-    this.sub?.unsubscribe()
+    this.listOfGamesSub?.unsubscribe()
+    this.routeParamsSub?.unsubscribe()
+  }
+
+  getListOfGames(search: string) {
+    this.listOfGamesSub?.unsubscribe()
+
+    this.listOfGamesSub = this.httpService
+      .getListOfGames({ search })
+      .subscribe(({ results }) => this.games = results)
   }
 
   showGameDetails(id: number) {

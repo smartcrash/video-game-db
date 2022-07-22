@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { forkJoin, map, Observable } from 'rxjs';
 import { environment as env } from 'src/environments/environment';
@@ -9,8 +9,12 @@ export class HttpService {
   constructor(private http: HttpClient) { }
 
 
-  getListOfGames(): Observable<APIResponse<Game[]>> {
-    return this.http.get<APIResponse<Game[]>>(`${env.apiURL}/games`, {})
+  getListOfGames({ search }: { search?: string }): Observable<APIResponse<Game[]>> {
+    let params = new HttpParams()
+
+    if (search) params = params.set('search', search)
+
+    return this.http.get<APIResponse<Game[]>>(`${env.apiURL}/games`, { params })
   }
 
   getDetailsOfGame(id: number): Observable<GameDetailsWithScreenhotsAndMovies> {
