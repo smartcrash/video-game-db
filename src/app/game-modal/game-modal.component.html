@@ -4,8 +4,8 @@
   <ng-template #loading>Loading...</ng-template>
 
   <ng-template #details>
-    <figure class="-mx-4 -mt-4 relative overflow-hidden rounded-t-lg">
-      <img class="" src="{{ game!.background_image }}" alt="">
+    <figure class="-mx-4 -mt-4 relative overflow-hidden rounded-t-lg h-72 lg:h-auto">
+      <img class="w-full h-full object-cover" src="{{ game!.background_image }}" alt="{{ game!.name }}">
 
       <div class="absolute h-20 w-full bottom-0 left-0 bg-gradient-to-t from-white to-transparent"></div>
     </figure>
@@ -19,8 +19,8 @@
         </li>
       </ul>
 
-      <div class="flex space-x-4 items-start">
-        <h5 class="text-4xl font-bold">{{ game?.rating }}</h5>
+      <div class="flex space-x-2 lg:space-x-4 items-start">
+        <h5 class=" text-3xl lg:text-4xl font-bold">{{ game?.rating }}</h5>
         <div class="space-y-1">
           <app-stars [count]="game!.rating"></app-stars>
           <p class="text-sm">{{ game?.ratings_count }} reviews</p>
@@ -30,11 +30,11 @@
 
       <ul *ngIf="game!.screenshots_count > 0" class="flex space-x-3 max-w-full overflow-auto pb-2 pt-2">
         <li *ngFor="let screenshot of game!.screenshots; let index = index" class="flex-shrink-0">
-          <img src="{{ screenshot.image }}" alt="Screenshot #{{ index + 1}}" class="rounded-md w-60">
+          <img src="{{ screenshot.image }}" alt="Screenshot #{{ index + 1}}" class="rounded-md w-40 lg:w-60">
         </li>
       </ul>
 
-      <div class="grid grid-cols-3 py-3 gap-3">
+      <div class="grid grid-cols-1 lg:grid-cols-3 py-3 gap-3">
         <div class="col-span-2">
           <div class="text-sm" [innerHtml]="game!.description"></div>
         </div>
