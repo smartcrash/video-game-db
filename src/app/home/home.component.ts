@@ -20,8 +20,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(private httpService: HttpService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.routeParamsSub = this.activatedRoute.params.subscribe((params) => {
-      this.getListOfGames(params['search'] || '')
+    this.routeParamsSub = this.activatedRoute.queryParams.subscribe((queryParams) => {
+      this.getListOfGames(queryParams['q'] || '', queryParams['order'] || '')
     });
   }
 
@@ -30,11 +30,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.routeParamsSub?.unsubscribe()
   }
 
-  getListOfGames(search: string) {
+  getListOfGames(search: string, ordering: string) {
     this.listOfGamesSub?.unsubscribe()
 
     this.listOfGamesSub = this.httpService
-      .getListOfGames({ search })
+      .getListOfGames({ search, ordering })
       .subscribe(({ results }) => this.games = results)
   }
 

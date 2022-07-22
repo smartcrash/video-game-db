@@ -12,7 +12,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   @ViewChild('inputElement') inputElement!: ElementRef<HTMLInputElement>
   inputValue = ''
 
-  private routeParamsSub?: Subscription
+  private routeQueryParamsSub?: Subscription
 
   constructor(private router: Router, private route: ActivatedRoute) { }
 
@@ -28,16 +28,22 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.routeParamsSub = this.route.params.subscribe(params => this.inputValue = params['search'] || "")
+    this.routeQueryParamsSub = this.route
+      .queryParams
+      .subscribe(queryParams => this.inputValue = queryParams['q'] || "")
   }
 
   onSubmit(): void {
-    const value = this.inputValue.trim()
+    const q = this.inputValue.trim() || undefined
 
-    this.router.navigate(['/', value])
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { q },
+      queryParamsHandling: 'merge'
+    })
   }
 
   ngOnDestroy(): void {
-    this.routeParamsSub?.unsubscribe()
+    this.routeQueryParamsSub?.unsubscribe()
   }
 }

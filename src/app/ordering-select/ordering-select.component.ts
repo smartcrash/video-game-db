@@ -16,16 +16,17 @@ export class OrderingSelectComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.routeQueryParamsSub = this.route
       .queryParams
-      .subscribe(queryParams => this.selectedValue = queryParams['ordering'] || "")
+      .subscribe(queryParams => this.selectedValue = queryParams['order'] || "")
   }
 
   onChange() {
-    const ordering = this.selectedValue
-    const queryParams: Record<string, string> = {}
+    const order = this.selectedValue || undefined
 
-    if (ordering) queryParams['ordering'] = ordering
-
-    this.router.navigate(['/'], { queryParams })
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { order },
+      queryParamsHandling: 'merge'
+    })
   }
 
   ngOnDestroy(): void {

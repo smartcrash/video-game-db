@@ -9,10 +9,11 @@ export class HttpService {
   constructor(private http: HttpClient) { }
 
 
-  getListOfGames({ search }: { search?: string }): Observable<APIResponse<Game[]>> {
+  getListOfGames({ search, ordering }: { search?: string, ordering?: string }): Observable<APIResponse<Game[]>> {
     let params = new HttpParams()
 
     if (search) params = params.set('search', search)
+    if (ordering) params = params.set('ordering', ordering)
 
     return this.http.get<APIResponse<Game[]>>(`${env.apiURL}/games`, { params })
   }
