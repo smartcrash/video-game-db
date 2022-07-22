@@ -17,6 +17,7 @@ import { StarsComponent } from './stars/stars.component';
 import { ModalComponent } from './modal/modal.component';
 import { HttpCacheInterceptor } from './interceptors/http-cache.interceptor';
 import { OrderingSelectComponent } from './ordering-select/ordering-select.component';
+import { SlidersIconComponent } from './sliders-icon/sliders-icon.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { OrderingSelectComponent } from './ordering-select/ordering-select.compo
     GameModalComponent,
     StarsComponent,
     ModalComponent,
-    OrderingSelectComponent
+    OrderingSelectComponent,
+    SlidersIconComponent
   ],
   imports: [
     BrowserModule,
