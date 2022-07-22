@@ -15,6 +15,7 @@ import { GameModalComponent } from './game-modal/game-modal.component';
 import { GameCardComponent } from './game-card/game-card.component';
 import { StarsComponent } from './stars/stars.component';
 import { ModalComponent } from './modal/modal.component';
+import { HttpCacheInterceptor } from './interceptors/http-cache.interceptor';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,11 @@ import { ModalComponent } from './modal/modal.component';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpHeadersInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpCacheInterceptor,
       multi: true
     },
   ],

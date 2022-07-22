@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { GameDetailsWithScreenhotsAndMovies } from '../models';
 import { HttpService } from '../services/http.service';
 
@@ -6,7 +7,7 @@ import { HttpService } from '../services/http.service';
   selector: 'app-game-modal',
   templateUrl: './game-modal.component.html',
 })
-export class GameModalComponent implements OnInit, OnChanges {
+export class GameModalComponent implements OnInit, OnChanges, OnDestroy {
   /** Current displayed game's ID */
   @Input() id: number = -1
 
@@ -15,9 +16,7 @@ export class GameModalComponent implements OnInit, OnChanges {
 
   /** Game details */
   game?: GameDetailsWithScreenhotsAndMovies
-
-  /** Stores the result of previously fetched games */
-  private cache: Record<number, GameDetailsWithScreenhotsAndMovies> = {}
+  detailsOfGameSub?: Subscription
 
   constructor(private httpService: HttpService) { }
 
@@ -35,15 +34,13 @@ export class GameModalComponent implements OnInit, OnChanges {
     }
   }
 
+  ngOnDestroy(): void {
+    this.detailsOfGameSub?.unsubscribe()
+  }
+
   private getDetailsOfGame(id: number) {
-    if (!this.cache[id]) {
-      const sub = this.httpService
-        .getDetailsOfGame(id)
-        .subscribe(game => {
-          this.cache[id] = game
-          this.game = this.cache[id]
-          sub.unsubscribe()
-        })
-    } else this.game = this.cache[id]
+    this.detailsOfGameSub = this.httpService
+      .getDetailsOfGame(id)
+      .subscribe(game => this.game = game)
   }
 }
