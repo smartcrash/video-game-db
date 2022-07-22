@@ -51,7 +51,7 @@
 
             </li>
 
-            <li>
+            <li *ngIf="game!.publishers.length">
               <p>
                 <strong class="font-bold">Publishers:</strong>
                 <span *ngFor="let publisher of game!.publishers; let index = index">{{ index > 0 ? "," : '' }} {{
@@ -66,7 +66,7 @@
               </p>
             </li>
 
-            <li>
+            <li *ngIf="game!.website">
               <p>
                 <strong class="font-bold">Website: </strong>
                 <a class="underline" [href]="game!.website" target="_blank">{{ game!.website }}</a>

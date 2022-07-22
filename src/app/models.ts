@@ -100,7 +100,7 @@ export interface GameDetails {
   updated: Date;
   background_image: string;
   background_image_additional: string;
-  website: string;
+  website?: string;
   rating: number;
   rating_top: number;
   ratings: Ratings;
@@ -129,7 +129,7 @@ export interface GameDetails {
   additions_count: number;
   game_series_count: number;
   esrb_rating: EsrbRating;
-  platforms: Platform[];
+  platforms?: Platform[];
   publishers: Publisher[];
   genres: Genre[];
 }

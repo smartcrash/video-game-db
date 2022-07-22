@@ -5,15 +5,18 @@
       <img class="rounded-lg -mt-5 w-full h-60 shadow-lg" src="{{ game.background_image }}" alt="">
     </figure>
     <div class="p-5 pt-3 space-y-2">
-      <a href="#">
-        <h5 class="text-gray-900 font-medium text-xl tracking-tight dark:text-white underline">{{ game.name }}</h5>
+      <a href="#" class="">
+        <h5
+          class="text-gray-900 font-medium text-xl tracking-tight dark:text-white underline text-ellipsis whitespace-nowrap w-full overflow-hidden">
+          {{
+          game.name }}</h5>
       </a>
 
-      <ul class="flex text-xs space-x-2 text-gray-500">
+      <ul *ngIf="game.platforms?.length" class="flex text-xs space-x-2 text-gray-500">
         <li *ngFor="let platform of game.platforms.slice(0, 3)" class="whitespace-nowrap">
           {{ platform.platform.name }}
         </li>
-        <li>...</li>
+        <li *ngIf="game.platforms.length > 3">...</li>
       </ul>
 
       <div class="flex justify-between items-end">
